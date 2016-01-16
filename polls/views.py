@@ -75,6 +75,7 @@ def register(request):
 
         # If the two forms are valid...
         if user_form.is_valid() and profile_form.is_valid():
+            print("valid")
             # Save the user's form data to the database.
             user = user_form.save()
 
