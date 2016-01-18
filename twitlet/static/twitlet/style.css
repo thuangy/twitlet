@@ -1,0 +1,46 @@
+li a {
+    color: green;
+}
+
+/*body {
+    background: white url("images/background.gif") no-repeat right bottom;
+}*/
+
+
+h1 {
+	text-align: center;
+}
+
+#logout, #login, #register {
+	float: right;
+	text-decoration: none;
+	color: black;
+	border: 1px solid #666666;
+	border-radius: 20px;
+	padding: 5px;
+}
+
+#new_tweetlet {
+	text-decoration: none;
+	color: black;
+	border: 1px solid #666666;
+	border-radius: 20px;
+	padding: 5px;
+}
+
+#new_tweetlet_container {
+	text-align: center;
+}
+
+.tweetlet {
+	border: 1px solid #666666;
+	padding: 20px;
+	display: inline-block;
+}
+
+.tweetlet_message {
+	list-style-type: none;
+	font-size: 2em;
+}
+
+
