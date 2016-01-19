@@ -15,6 +15,14 @@ class QuestionAdmin(admin.ModelAdmin):
     ]
     inlines = [ChoiceInline]
 
+"""class TweetletAdmin(admin.ModelAdmin):
+    list_display = ['message', 'pub_date', 'user']
+
+
+    def save_model(self, request, tweetlet, form, change):
+          tweetlet.user = request.user.username
+          tweetlet.save()"""
+
 admin.site.register(UserProfile)
 admin.site.register(Tweetlet)
 admin.site.register(Question, QuestionAdmin)

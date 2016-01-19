@@ -39,4 +39,4 @@ class UserProfile(models.Model):
 class Tweetlet(models.Model):
     message = models.CharField(max_length=140, blank=True)
     pub_date = models.DateTimeField('date published')
-    #user = ""
+    user = models.CharField(max_length=140, default='anonymous')

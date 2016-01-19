@@ -17,6 +17,12 @@ class UserProfileForm(forms.ModelForm):
         fields = ('website', 'picture')
 
 class TweetletForm(forms.ModelForm):
+    
+
+
+
+
+
     #user = forms.CharField(widget=forms.HiddenInput(), initial=user.username)
     #user = username
     #user = forms.CharField(widget=forms.HiddenInput(), initial="")
@@ -25,9 +31,26 @@ class TweetletForm(forms.ModelForm):
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     pub_date = forms.DateTimeField(widget=forms.HiddenInput(), initial=timezone.now())
-    #user = forms.CharField(max_length=140)
+    #user = forms.CharField(widget=forms.HiddenInput())
+
+    """def __init__(self, *args, **kwargs):
+       self.request = kwargs.pop('request', None)
+       return super(TweetletForm, self).__init__(*args, **kwargs)
+
+
+    def save(self, *args, **kwargs):
+       kwargs['commit']=False
+       obj = super(TweetletForm, self).save(*args, **kwargs)
+       if self.request:
+           obj.user = self.request.username
+       obj.save()
+       return obj"""
+
+
     # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Tweetlet
+        #exclude = ('user', 'views', 'likes')
         fields = ('message', 'pub_date')
+        #exclude = ('user',)

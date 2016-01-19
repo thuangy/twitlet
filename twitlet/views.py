@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from .models import Choice, Question, Tweetlet
+from .models import Choice, Question, Tweetlet, UserProfile
 from .forms import UserForm, UserProfileForm, TweetletForm
 
 #curr_user = ""
@@ -181,15 +181,23 @@ def user_logout(request):
     # Take the user back to the homepage.
     return HttpResponseRedirect('/twitlet/')
 
+@login_required
 def make_tweetlet(request):
     # A HTTP POST?
     if request.method == 'POST':
-        form = TweetletForm(request.POST)
+        #form = TweetletForm(data=request.POST, initial={'user': request.user.username})
+        form = TweetletForm(data=request.POST)
+        #form = temp.save(commit=False)
+        #form.user = UserProfile.objects.get(user=request.user).username
+        #form.user = request.user.username
+        #form.fields['user'].initial = request.user.username
         #form.user = forms.CharField(widget=forms.HiddenInput(), initial=curr_user)
         # Have we been provided with a valid form?
         if form.is_valid():
             # Save the new category to the database.
-            form.save(commit=True)
+            temp = form.save(commit=True)
+            temp.user = request.user.username
+            temp = temp.save()
 
             # Now call the index() view.
             # The user will be shown the homepage.

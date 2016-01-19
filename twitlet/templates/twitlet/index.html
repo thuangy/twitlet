@@ -41,6 +41,7 @@
     {% for tweetlet in latest_tweetlet_list %}
         <div class="tweetlet">
     	   <li class="tweetlet_message">{{ tweetlet.message }}</li>
+           <span style="display: inline-block">{{ tweetlet.user }}</span>
            <span style="display: inline-block">{{ tweetlet.pub_date }}</span>
         </div>
         <br />
