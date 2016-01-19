@@ -2,51 +2,53 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'twitlet/style.css' %}" />
 
-{% if user.is_authenticated %}
-<a id="logout" href="/twitlet/logout/">Logout</a><br />
+<body id="index_body">
+    {% if user.is_authenticated %}
+    <a id="logout" href="/twitlet/logout/">Logout</a><br />
 
 
-{% else %}
-<a id="register" href="/twitlet/register/">Register Here</a>
-<a id="login" href="/twitlet/login/">Login</a><br />
-{% endif %}
+    {% else %}
+    <a id="register" href="/twitlet/register/">Register Here</a>
+    <a id="login" href="/twitlet/login/">Login</a><br />
+    {% endif %}
 
 
 
-{% if user.is_authenticated %}
-<h1>Welcome to Twitlet {{ user.username }}!</h1>
-<div id="new_tweetlet_container">
-    <a id="new_tweetlet" href="/twitlet/make_tweetlet/">Make a new tweetlet</a>
-</div>
-<br />
-<h2>Here are the recent tweetlets:</h2>
-{% else %}
-<h1>Welcome to Twitlet!</h1>
-{% endif %}
-<!--<a href="/polls/register/">Register Here</a>
-<br />
-<a href="/polls/login/">Login</a>-->
-<!--{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}-->
+    {% if user.is_authenticated %}
+    <h1>Welcome to Twitlet {{ user.username }}!</h1>
+    <div id="new_tweetlet_container">
+        <a id="new_tweetlet" href="/twitlet/make_tweetlet/">Make a new tweetlet</a>
+    </div>
+    <br />
+    <h2>Here are the recent tweetlets:</h2>
+    {% else %}
+    <h1>Welcome to Twitlet!</h1>
+    {% endif %}
+    <!--<a href="/polls/register/">Register Here</a>
+    <br />
+    <a href="/polls/login/">Login</a>-->
+    <!--{% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}-->
 
-{% if latest_tweetlet_list %}
-    <ul>
-    {% for tweetlet in latest_tweetlet_list %}
-        <div class="tweetlet">
-    	   <li class="tweetlet_message">{{ tweetlet.message }}</li>
-           <span style="display: inline-block">{{ tweetlet.user }}</span>
-           <span style="display: inline-block">{{ tweetlet.pub_date }}</span>
-        </div>
-        <br />
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No recent tweetlets.</p>
-{% endif %}
+    {% if latest_tweetlet_list %}
+        <ul>
+        {% for tweetlet in latest_tweetlet_list %}
+            <div class="tweetlet">
+        	   <li class="tweetlet_message">{{ tweetlet.message }}</li>
+               <span style="display: inline-block">{{ tweetlet.user }}</span>
+               <span style="display: inline-block">{{ tweetlet.pub_date }}</span>
+            </div>
+            <br />
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recent tweetlets.</p>
+    {% endif %}
+</body>
