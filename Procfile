@@ -1,1 +1,1 @@
-web: gunicorn twitlet.wsgi
+web: gunicorn mysite.wsgi
