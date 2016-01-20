@@ -1,4 +1,4 @@
--e git+https://github.com/django/django.git@6a4f13de27e2c46b6e516a01ba77fd4fe03d9dbe#egg=Django-origin/HEAD
+-e git://github.com/django/django.git@6a4f13de27e2c46b6e516a01ba77fd4fe03d9dbe#egg=django
 Pillow==3.1.0
 dj-database-url==0.3.0
 dj-static==0.0.6
