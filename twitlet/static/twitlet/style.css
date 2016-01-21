@@ -3,7 +3,7 @@ li a {
 }
 
 body {
-    background: white url("images/watercolor.jpg");/* no-repeat right bottom;*/
+    background: white url("https://s3.amazonaws.com/thuangydjango/watercolor.jpg");/* no-repeat right bottom;*/
     /*background-size: 100% 100%;*/
     background-repeat: no-repeat;
     font-family: "Tahoma";

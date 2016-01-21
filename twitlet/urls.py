@@ -2,6 +2,10 @@ from django.conf.urls import url
 
 from . import views
 
+from django.conf import settings
+
+from django.conf.urls.static import static
+
 app_name = 'twitlet'
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
@@ -13,4 +17,13 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^make_tweetlet/$', views.make_tweetlet, name='make_tweetlet'), # NEW MAPPING!
     #url(r'^tweetlet/(?P<tweetlet_name_slug>[\w\-]+)/$', views.category, name='category'),)
+	#url(r'^static/(?P.*)$', {'document_root': settings.STATIC_ROOT}, prefix='django.views.static.serve'),
 ]
+
+"""urlpatterns += patterns('',
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+)"""
+
+#urlpatterns += staticfiles_urlpatterns()
+
+#urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
