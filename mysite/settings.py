@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 import os
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
+#import dj_database_url
 
 
 
@@ -149,7 +149,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 #STATIC_URL = '/static/'
-#STATIC_URL = os.path.join(BASE_DIR, '/static/')
+STATIC_URL = os.path.join(BASE_DIR, '/static/')
 
 """STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),

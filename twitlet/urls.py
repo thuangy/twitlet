@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^make_tweetlet/$', views.make_tweetlet, name='make_tweetlet'), # NEW MAPPING!
+    url(r'^my_tweetlets/$', views.view_tweetlets.as_view(), name='view_tweetlets'), # NEW MAPPING!
     #url(r'^tweetlet/(?P<tweetlet_name_slug>[\w\-]+)/$', views.category, name='category'),)
 	#url(r'^static/(?P.*)$', {'document_root': settings.STATIC_ROOT}, prefix='django.views.static.serve'),
 ]

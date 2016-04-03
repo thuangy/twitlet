@@ -23,11 +23,16 @@ h1 {
 h2 {
 	padding: 50px;
 	font-size: 2em;
+	text-align: center;
 }
 
 h3 {
 	font-size: 3em;
 	text-align: center;
+}
+
+.errorlist {
+	list-style-type: none;
 }
 
 #category_form, #login_form {
@@ -38,7 +43,7 @@ h3 {
 	padding-left: 300px;
 }
 
-#logout, #login, #register {
+#logout, #login, #register, #homepage, #bot_tweetlet, #submit_tweetlet, #my_tweetlets, #login_submit, #register_submit {
 	float: right;
 	text-decoration: none;
 	color: black;
@@ -46,6 +51,20 @@ h3 {
 	border-radius: 20px;
 	padding: 5px;
 	background: rgba(255,255,255,0.5);
+}
+
+#bot_tweetlet, #submit_tweetlet, #login_submit, #register_submit {
+	float: none;
+	cursor: pointer;
+	outline: none;
+}
+
+#bot_container {
+	text-align: center
+}
+
+#homepage, #my_tweetlets {
+	float: left;
 }
 
 #new_tweetlet {
@@ -65,11 +84,30 @@ h3 {
 	border: 1px solid #666666;
 	padding: 20px;
 	display: inline-block;
+	width: 300px;
+	border-radius: 10px;
 }
 
 .tweetlet_message {
 	list-style-type: none;
 	font-size: 1.5em;
+}
+
+#id_message {
+	width: 240px;
+	padding: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid white;
+    outline: none;
+}
+
+.text-input, #id_username, #id_email, #id_password  {
+	padding: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid white;
+    outline: none;
 }
 
 

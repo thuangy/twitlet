@@ -27,7 +27,7 @@ class TweetletForm(forms.ModelForm):
     #user = username
     #user = forms.CharField(widget=forms.HiddenInput(), initial="")
     #user = forms.CharField()
-    message = forms.CharField(max_length=140, help_text="Please enter your Tweetlet message. ")
+    message = forms.CharField(max_length=50, help_text="Please enter your Tweetlet message. ", initial=" ")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     pub_date = forms.DateTimeField(widget=forms.HiddenInput(), initial=timezone.now())

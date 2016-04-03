@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/thuangydjango/style.css" />
+    <head>
+        <title>Tweetlet</title>
+    </head>
+
+    <body>
+        <div id="homepage_container">
+            <a id="homepage" href="/twitlet/">Home</a>
+        </div>
+    </br>
+        {% if user.is_authenticated %}
+
+            {% if user_tweetlets %}
+                <h2>Here are your tweetlets:</h2>
+                <ul>
+                {% for tweetlet in user_tweetlets %}
+                    <div class="tweetlet">
+                       <li class="tweetlet_message">{{ tweetlet.message }}</li>
+                       <span style="display: inline-block">{{ tweetlet.user }}</span>
+                       <span style="display: inline-block">{{ tweetlet.pub_date }}</span>
+                    </div>
+                    <br />
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no tweetlets.</p>
+            {% endif %}
+
+        {% endif %}
+
+
+    </body>
+</html>

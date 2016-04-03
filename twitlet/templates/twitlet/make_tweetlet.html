@@ -7,9 +7,23 @@
     </head>
 
     <body>
+        <div id="homepage_container">
+            <a id="homepage" href="/twitlet/">Home</a>
+        </div>
+    </br>
         <h3>Make a tweetlet!</h3>
 
+        {% if clicked %}
+            {% if new_tweetlet %}
+                <p> {{ new_tweetlet }} </p>
+            {% else %}
+                <p>No recent tweetlets.</p>
+            {% endif %}
+        {% endif %}
+
         <form id="category_form" method="post" action="/twitlet/make_tweetlet/">
+
+            
 
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
@@ -21,12 +35,26 @@
                 {{ field.help_text }}
                 <br />
                 <br />
+                <div id="bot_container">
+
+                    <input name="bot_tweetlet" id="bot_tweetlet" type="button" value="Auto-generate (based on your past tweetlets)"/>
+                    <!--<button id="bot" onclick="/twitlet/make_tweetlet()">Or let us write one for you, based on your previous tweetlets!</a>-->
+                </div>
+                <br />
                 {{ field }}
                 <br />
                 <br />
             {% endfor %}
 
-            <input type="submit" name="submit" value="Make Tweetlet" />
+            <input id="submit_tweetlet" type="submit" name="submit" value="Make Tweetlet" />
         </form>
+
+        <script>
+            document.getElementById("bot_tweetlet").onclick = function() {
+                document.getElementById("id_message").value = "{{ new_tweetlet }}";
+                //alert("{{ new_tweetlet }}");
+            }
+
+        </script>
     </body>
 </html>

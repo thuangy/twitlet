@@ -20,6 +20,8 @@ class IndexView(generic.ListView):
     #context_object_name = 'latest_question_list'
     context_object_name = 'latest_tweetlet_list'
 
+    #user_tweetlets = Question.objects.filter(user = request.user)
+
     def get_queryset(self):
         """
         Return the last five published questions (not including those set to be
@@ -29,6 +31,9 @@ class IndexView(generic.ListView):
             pub_date__lte=timezone.now()
         ).order_by('-pub_date')[:5]"""
         return Tweetlet.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:10]
+        #return Tweetlet.objects.filter(user=self.request.user)
+
+    #user_tweetlets = get_queryset
 
 
 class DetailView(generic.DetailView):
@@ -44,6 +49,16 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Question
     template_name = 'twitlet/results.html'
+
+#@login_required
+class view_tweetlets(generic.ListView):
+    model = Tweetlet
+    #user_tweetlets = Tweetlet.objects.order_by('-pub_date')[:10]
+    template_name = 'twitlet/my_tweetlets.html'
+    context_object_name = 'user_tweetlets'
+    def get_queryset(self):
+        #return Tweetlet.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:10]
+        return Tweetlet.objects.filter(user=self.request.user).order_by('-pub_date')
 
 
 def vote(request, question_id):
@@ -184,6 +199,10 @@ def user_logout(request):
 @login_required
 def make_tweetlet(request):
     # A HTTP POST?
+
+
+
+    new_tweetlet = bot_tweetlet(request)
     if request.method == 'POST':
         #form = TweetletForm(data=request.POST, initial={'user': request.user.username})
         form = TweetletForm(data=request.POST)
@@ -210,14 +229,72 @@ def make_tweetlet(request):
         # If the request was not a POST, display the form to enter details.
         form = TweetletForm()
 
+    """if request.POST.get('bot_tweetlet'):
+        print("button clicked!")
+        form.message = new_tweetlet
+    else:
+        print("NO CLICK")"""
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
     #return index(request)
-    return render(request, 'twitlet/make_tweetlet.html', {'form': form})
+    return render(request, 'twitlet/make_tweetlet.html', {'form': form, 'new_tweetlet': new_tweetlet, 'clicked': False})
+
+
+@login_required
+def bot_tweetlet(request):
+    tweetlets = Tweetlet.objects.filter(user=request.user)
+    if (tweetlets.exists()):
+        most_used = {}
+        for t in tweetlets:
+            for word in t.message.split(" "):
+                if word in most_used:
+                    most_used[word] += 1
+                else:
+                    most_used[word] = 1
+
+        count = 0
+        new_tweetlet = ""
+        for w in sorted(most_used, key=most_used.get, reverse=True):
+            if (w.isdigit()):
+                continue
+            if (count == 0):
+                if (not w[0].isupper()):
+                    new_tweetlet += w[0].upper()
+                    new_tweetlet += w[1:]
+                else:
+                    new_tweetlet += w
+            elif (count <= 5):
+                new_tweetlet += w
+            if (not new_tweetlet[-1].isalpha()):
+                new_tweetlet = new_tweetlet[:-1]
+            new_tweetlet += " "
+            count += 1
+
+        print(new_tweetlet)
+        return new_tweetlet
+
+def change_message(form, message):
+    form.fields["message"].initial = message
+
+
+
+"""@login_required
+class view_tweetlets(generic.DetailView):
+    model = Tweetlet
+    #user_tweetlets = Tweetlet.objects.order_by('-pub_date')[:10]
+    template_name = 'twitlet/my_tweetlets.html'
+    context_object_name = 'user_tweetlets'
+    def get_queryset(self):
+        #return Tweetlet.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:10]
+        return Tweetlet.objects.filter(user=self.request.user)
+
+def view_tweetlets(request):
+    return Tweetlet.objects.filter(user=request.user)"""
+
 
 
 #def index(request):
-    """latest_question_list = Question.objects.order_by('-pub_date')[:5]
+"""latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
     return render(request, 'twitlet/index.html', context)"""
 
