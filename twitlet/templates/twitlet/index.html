@@ -1,10 +1,16 @@
 {% load staticfiles %}
 
 <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/thuangydjango/style.css" />
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/french-turtles" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/caledo" type="text/css"/>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/hilo-deco" type="text/css"/>
 
-<body id="index_body">
+<body id="index_body" background="https://pixabay.com/static/uploads/photo/2015/11/04/17/34/dove-1023024_960_720.png", background-color="lightgrey">
     {% if user.is_authenticated %}
-    <a id="logout" href="/twitlet/logout/">Logout</a><br />
+    <a id="logout" href="/twitlet/logout/">Logout</a>
+    <a id="my_tweetlets" href="/twitlet/my_tweetlets/">My Tweetlets</a>
+    <a id="new_tweetlet" href="/twitlet/make_tweetlet/">New Tweetlet</a>
+    <br />
 
 
     {% else %}
@@ -12,19 +18,21 @@
     <a id="login" href="/twitlet/login/">Login</a><br />
     {% endif %}
 
-
+    <hr id="topline" class="line">
 
     {% if user.is_authenticated %}
     <h1>Welcome to Twitlet {{ user.username }}!</h1>
-    <div id="new_tweetlet_container">
+    <!--<div id="new_tweetlet_container">
         <a id="new_tweetlet" href="/twitlet/make_tweetlet/">Make a new tweetlet</a>
         <a id="my_tweetlets" href="/twitlet/my_tweetlets/">My tweetlets</a>
-    </div>
+    </div>-->
     {% else %}
     <h1>Welcome to Twitlet!</h1>
     {% endif %}
 
+    <hr id="bottomline" class="line">
     <br />
+    <hr class="line" id="middleline">
     <h2>Here are the recent tweetlets:</h2>
     <!--<a href="/polls/register/">Register Here</a>
     <br />
@@ -40,14 +48,13 @@
     {% endif %}-->
 
     {% if latest_tweetlet_list %}
-        <ul>
+        <ul class="tweetlets">
         {% for tweetlet in latest_tweetlet_list %}
             <div class="tweetlet">
         	   <li class="tweetlet_message">{{ tweetlet.message }}</li>
                <span style="display: inline-block">{{ tweetlet.user }}</span>
                <span style="display: inline-block">{{ tweetlet.pub_date }}</span>
             </div>
-            <br />
         {% endfor %}
         </ul>
     {% else %}

@@ -2,6 +2,7 @@
 <html>
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/thuangydjango/style.css" />
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/hilo-deco" type="text/css"/>
     <head>
         <title>Tweetlet</title>
     </head>
@@ -14,15 +15,14 @@
         {% if user.is_authenticated %}
 
             {% if user_tweetlets %}
-                <h2>Here are your tweetlets:</h2>
-                <ul>
+                <h2 id="your_tweetlets">Here are your tweetlets:</h2>
+                <ul class="tweetlets" id="my_tweetlets_list">
                 {% for tweetlet in user_tweetlets %}
                     <div class="tweetlet">
                        <li class="tweetlet_message">{{ tweetlet.message }}</li>
                        <span style="display: inline-block">{{ tweetlet.user }}</span>
                        <span style="display: inline-block">{{ tweetlet.pub_date }}</span>
                     </div>
-                    <br />
                 {% endfor %}
                 </ul>
             {% else %}

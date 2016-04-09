@@ -2,11 +2,12 @@
 <html>
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/thuangydjango/style.css" />
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/hilo-deco" type="text/css"/>
     <head>
         <title>Tweetlet</title>
     </head>
 
-    <body>
+    <body id="make_tweetlet_body">
         <div id="homepage_container">
             <a id="homepage" href="/twitlet/">Home</a>
         </div>
@@ -40,6 +41,7 @@
                     <input name="bot_tweetlet" id="bot_tweetlet" type="button" value="Auto-generate (based on your past tweetlets)"/>
                     <!--<button id="bot" onclick="/twitlet/make_tweetlet()">Or let us write one for you, based on your previous tweetlets!</a>-->
                 </div>
+                <br />
                 <br />
                 {{ field }}
                 <br />
