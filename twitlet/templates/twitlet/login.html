@@ -17,10 +17,13 @@
 
         <form id="login_form" method="post" action="/twitlet/login/">
             {% csrf_token %}
-            Username: <input class="text-input" type="text" name="username" value="" size="50" />
+
+            <label>Username</label>
+            <input class="text-input" type="text" name="username" value="" size="50" />
             <br />
             <br />
-            Password: <input class="text-input" type="password" name="password" value="" size="50" />
+            <label>Password</label>
+            <input class="text-input" type="password" name="password" value="" size="50" />
             <br />
             <br />
 

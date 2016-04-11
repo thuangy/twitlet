@@ -14,7 +14,7 @@
 
 
     {% else %}
-    <a id="register" href="/twitlet/register/">Register Here</a>
+    <a id="register" href="/twitlet/register/">Register</a>
     <a id="login" href="/twitlet/login/">Login</a><br />
     {% endif %}
 
@@ -56,6 +56,9 @@
                <span style="display: inline-block">{{ tweetlet.pub_date }}</span>
             </div>
         {% endfor %}
+            <div class="tweetlet" id="footer">
+                <p>Twitlet by Tina Huang</p>
+            </div>
         </ul>
     {% else %}
         <p>No recent tweetlets.</p>
