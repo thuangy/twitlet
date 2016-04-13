@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/thuangydjango/style.css" />
 <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/hilo-deco" type="text/css"/>
@@ -8,6 +8,8 @@
     </head>
 
     <body id="register_body">
+        <div id="container"> 
+            <div id="background"></div>
         <div id="homepage_container">
             <a id="homepage" href="/twitlet/">Home</a>
         </div>
@@ -46,6 +48,6 @@
             <input id="register_submit" type="submit" name="submit" value="Register" />
         </form>
         {% endif %}
-
+    </div>
     </body>
 </html>

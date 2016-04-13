@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/thuangydjango/style.css" />
 <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/hilo-deco" type="text/css"/>
@@ -9,26 +9,28 @@
     </head>
 
     <body id="login_body">
-        <div id="homepage_container">
-            <a id="homepage" href="/twitlet/">Home</a>
+        <div id="container"> 
+            <div id="background"></div>
+            <div id="homepage_container">
+                <a id="homepage" href="/twitlet/">Home</a>
+            </div>
+        </br>
+            <h3>Login to Twitlet</h3>
+
+            <form id="login_form" method="post" action="/twitlet/login/">
+                {% csrf_token %}
+
+                <label>Username</label>
+                <input class="text-input" type="text" name="username" value="" size="50" />
+                <br />
+                <br />
+                <label>Password</label>
+                <input class="text-input" type="password" name="password" value="" size="50" />
+                <br />
+                <br />
+
+                <input id="login_submit" type="submit" value="submit" />
+            </form>
         </div>
-    </br>
-        <h3>Login to Twitlet</h3>
-
-        <form id="login_form" method="post" action="/twitlet/login/">
-            {% csrf_token %}
-
-            <label>Username</label>
-            <input class="text-input" type="text" name="username" value="" size="50" />
-            <br />
-            <br />
-            <label>Password</label>
-            <input class="text-input" type="password" name="password" value="" size="50" />
-            <br />
-            <br />
-
-            <input id="login_submit" type="submit" value="submit" />
-        </form>
-
     </body>
 </html>
