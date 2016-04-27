@@ -52,6 +52,9 @@ h3 {
 
 .errorlist {
 	list-style-type: none;
+    padding-left: 0px;
+    color: #DE991F;
+    font-size: 1.3em;
 }
 
 #category_form, #login_form {
@@ -74,6 +77,8 @@ h3 {
 	outline: none;
 	background: rgba(255,255,255,0.1);
 	font-size: 1.2em;
+	padding-left: 10px;
+    padding-right: 10px;
 }
 
 #bot_tweetlet, #submit_tweetlet, #login_submit, #register_submit {
@@ -240,6 +245,11 @@ input {
     font-family: 'HiLoDecoDeco';
     font-weight: normal;
     font-style: normal;
+    font-size: 1.5em;
+}
+
+#thankyou {
+    padding-top: 100px;
 }
 	
 

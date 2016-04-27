@@ -196,7 +196,6 @@ def user_logout(request):
     # Take the user back to the homepage.
     return HttpResponseRedirect('/twitlet/')
 
-@login_required
 def make_tweetlet(request):
     # A HTTP POST?
 
@@ -215,7 +214,10 @@ def make_tweetlet(request):
         if form.is_valid():
             # Save the new category to the database.
             temp = form.save(commit=True)
-            temp.user = request.user.username
+            if not request.user.username:
+                temp.user = "Anonymous"
+            else:
+                temp.user = request.user.username
             temp = temp.save()
 
             # Now call the index() view.
@@ -240,38 +242,43 @@ def make_tweetlet(request):
     return render(request, 'twitlet/make_tweetlet.html', {'form': form, 'new_tweetlet': new_tweetlet, 'clicked': False})
 
 
-@login_required
 def bot_tweetlet(request):
-    tweetlets = Tweetlet.objects.filter(user=request.user)
-    if (tweetlets.exists()):
-        most_used = {}
-        for t in tweetlets:
-            for word in t.message.split(" "):
-                if word in most_used:
-                    most_used[word] += 1
-                else:
-                    most_used[word] = 1
+    if request.user.username:
+        tweetlets = Tweetlet.objects.filter(user=request.user)
+        if (tweetlets.exists()):
+            if len(tweetlets) > 3:
+                most_used = {}
+                for t in tweetlets:
+                    for word in t.message.split(" "):
+                        if word in most_used:
+                            most_used[word] += 1
+                        else:
+                            most_used[word] = 1
 
-        count = 0
-        new_tweetlet = ""
-        for w in sorted(most_used, key=most_used.get, reverse=True):
-            if (w.isdigit()):
-                continue
-            if (count == 0):
-                if (not w[0].isupper()):
-                    new_tweetlet += w[0].upper()
-                    new_tweetlet += w[1:]
-                else:
-                    new_tweetlet += w
-            elif (count <= 5):
-                new_tweetlet += w
-            if (not new_tweetlet[-1].isalpha()):
-                new_tweetlet = new_tweetlet[:-1]
-            new_tweetlet += " "
-            count += 1
+                count = 0
+                new_tweetlet = ""
+                for w in sorted(most_used, key=most_used.get, reverse=True):
+                    if (w.isdigit()):
+                        continue
+                    if (count == 0):
+                        if (not w[0].isupper()):
+                            new_tweetlet += w[0].upper()
+                            new_tweetlet += w[1:]
+                        else:
+                            new_tweetlet += w
+                    elif (count <= 5):
+                        new_tweetlet += w
+                    if (not new_tweetlet[-1].isalpha()):
+                        new_tweetlet = new_tweetlet[:-1]
+                    new_tweetlet += " "
+                    count += 1
 
-        print(new_tweetlet)
-        return new_tweetlet
+                print(new_tweetlet)
+                return new_tweetlet
+            else:
+                return "Try something unexpected!"
+    else:
+        return "Try something unexpected!"
 
 def change_message(form, message):
     form.fields["message"].initial = message
