@@ -30,6 +30,7 @@ h1 {
 	padding: 120px;
     font-size: 4em;
     width: 400px;
+    margin-bottom: 0px;
 }
 
 h2 {
@@ -151,7 +152,7 @@ h3 {
 }
 
 .tweetlets {
-	padding-top: 450px;
+    padding-top: 500px;
     padding-left: 100px;
 }
 
@@ -250,6 +251,14 @@ input {
 
 #thankyou {
     padding-top: 100px;
+}
+
+#new_tweetlet {
+    float: left;
+    background-color: #4C4F5A;
+    margin-left: 110px;
+    font-size: 2em;
+
 }
 	
 

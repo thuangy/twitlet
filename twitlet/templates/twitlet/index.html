@@ -9,12 +9,12 @@
     {% if user.is_authenticated %}
     <a id="logout" href="/twitlet/logout/">Logout</a>
     <a id="my_tweetlets" href="/twitlet/my_tweetlets/">My Tweetlets</a>
-    <a id="new_tweetlet" href="/twitlet/make_tweetlet/">New Tweetlet</a>
+    <!--<a id="new_tweetlet" href="/twitlet/make_tweetlet/">New Tweetlet</a>-->
     <br />
 
 
     {% else %}
-    <a id="new_tweetlet" href="/twitlet/make_tweetlet/">New Tweetlet</a>
+    <!--<a id="new_tweetlet" href="/twitlet/make_tweetlet/">New Tweetlet</a>-->
     <a id="register" href="/twitlet/register/">Register</a>
     <a id="login" href="/twitlet/login/">Login</a><br />
     {% endif %}
@@ -32,7 +32,13 @@
     {% endif %}
 
     <hr id="bottomline" class="line">
+
+    <a id="new_tweetlet" href="/twitlet/make_tweetlet/">New Tweetlet</a>
+
     <br />
+
+
+
     <hr class="line" id="middleline">
     <h2>Here are the recent tweetlets:</h2>
     <!--<a href="/polls/register/">Register Here</a>
