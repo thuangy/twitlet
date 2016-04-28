@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Choice, Question, Tweetlet, UserProfile
 from .forms import UserForm, UserProfileForm, TweetletForm
 
+import random
+
 #curr_user = ""
 class IndexView(generic.ListView):
     latest_tweetlet_list = Question.objects.order_by('-pub_date')[:10]
@@ -227,6 +229,10 @@ def make_tweetlet(request):
         else:
             # The supplied form contained errors - just print them to the terminal.
             print(form.errors)
+    elif request.is_ajax:
+        form = TweetletForm()
+        new_tweetlet = bot_tweetlet(request)
+
     else:
         # If the request was not a POST, display the form to enter details.
         form = TweetletForm()
@@ -245,40 +251,127 @@ def make_tweetlet(request):
 def bot_tweetlet(request):
     if request.user.username:
         tweetlets = Tweetlet.objects.filter(user=request.user)
-        if (tweetlets.exists()):
-            if len(tweetlets) > 3:
-                most_used = {}
-                for t in tweetlets:
-                    for word in t.message.split(" "):
-                        if word in most_used:
-                            most_used[word] += 1
-                        else:
-                            most_used[word] = 1
-
-                count = 0
-                new_tweetlet = ""
-                for w in sorted(most_used, key=most_used.get, reverse=True):
-                    if (w.isdigit()):
-                        continue
-                    if (count == 0):
-                        if (not w[0].isupper()):
-                            new_tweetlet += w[0].upper()
-                            new_tweetlet += w[1:]
-                        else:
-                            new_tweetlet += w
-                    elif (count <= 5):
-                        new_tweetlet += w
-                    if (not new_tweetlet[-1].isalpha()):
-                        new_tweetlet = new_tweetlet[:-1]
-                    new_tweetlet += " "
-                    count += 1
-
-                print(new_tweetlet)
-                return new_tweetlet
-            else:
-                return "Try something unexpected!"
     else:
-        return "Try something unexpected!"
+        tweetlets = Tweetlet.objects.all()
+
+    if (tweetlets.exists()):
+        if len(tweetlets) > 3:
+            most_used = {}
+
+            greetings = {}
+            nouns = {}
+            verbs = {}
+            extras = {}
+
+
+            for t in tweetlets:
+                wordnum = 0
+                message_length = len(t.message.split())
+                for word in t.message.split(" "):
+                    if word.isdigit():
+                        wordnum += 1
+                        continue
+
+                    if not word[:-1].isalnum():
+                        wordnum += 1
+                        continue
+
+                    if wordnum == 0:
+                        if not word[-1].isalpha():
+                            if word in greetings:
+                                greetings[word] += 1
+                            else:
+                                greetings[word] = 1
+                        else:
+                            cword = word.lower()
+                            if cword in nouns:
+                                nouns[cword] += 1
+                            else:
+                                nouns[cword] = 1
+                    else:
+                        if word[0].isupper():
+                            if word in nouns:
+                                nouns[word] += 1
+                            else:
+                                nouns[word] = 1
+
+                    if wordnum == 1:
+                        if word in verbs:
+                            verbs[word] += 1
+                        else:
+                            verbs[word] = 1
+
+                    if wordnum == message_length - 1:
+                        if word in extras:
+                            extras[word] += 1
+                        else:
+                            extras[word] = 1
+
+
+
+
+
+                    if word in most_used:
+                        most_used[word] += 1
+                    else:
+                        most_used[word] = 1
+
+
+
+                    wordnum += 1
+
+            count = 0
+            new_tweetlet = ""
+            """for w in sorted(most_used, key=most_used.get, reverse=True):
+                if (w.isdigit()):
+                    continue
+                if (count == 0):
+                    if (not w[0].isupper()):
+                        new_tweetlet += w[0].upper()
+                        new_tweetlet += w[1:]
+                    else:
+                        new_tweetlet += w
+                elif (count <= 5):
+                    new_tweetlet += w
+                if (not new_tweetlet[-1].isalpha()):
+                    new_tweetlet = new_tweetlet[:-1]
+                new_tweetlet += " "
+                count += 1"""
+
+            if len(list(greetings.keys())) > 0:
+                greeting = random.choice(list(greetings.keys()))
+                print()
+                if not greeting[0].isupper():
+                    new_tweetlet += greeting[0].upper()
+                    new_tweetlet += greeting[1:]
+                else:
+                    new_tweetlet += greeting
+
+                new_tweetlet += " "
+
+            if len(list(nouns.keys())) > 0:
+                new_tweetlet += random.choice(list(nouns.keys()))
+
+                new_tweetlet += " "
+
+            if len(list(verbs.keys())) > 0:
+                new_tweetlet += random.choice(list(verbs.keys()))
+
+                new_tweetlet += " "
+
+            #new_tweetlet += random.choice(["the", "a"])
+
+            #new_tweetlet += " "
+
+            if len(list(extras.keys())) > 0:
+                new_tweetlet += random.choice(list(extras.keys()))
+
+            print(new_tweetlet)
+            return new_tweetlet
+        else:
+            return "Try something unexpected!"
+    #else:
+        #return "Try something unexpected!"
 
 def change_message(form, message):
     form.fields["message"].initial = message
