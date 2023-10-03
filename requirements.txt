@@ -1,5 +1,5 @@
 -e git://github.com/django/django.git@6a4f13de27e2c46b6e516a01ba77fd4fe03d9dbe#egg=django
-Pillow==3.1.0
+Pillow==10.0.1
 dj-database-url==0.3.0
 dj-static==0.0.6
 django-toolbelt==0.0.1
